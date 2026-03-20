@@ -13,8 +13,8 @@ final class MapCoordinator: NSObject, MLNMapViewDelegate {
     var lastIsHikingEnabled    = false
     var lastActiveRouteId: UUID? = nil
 
-    // Annotation for hover dot
     private var hoverAnnotation: MLNPointAnnotation?
+    var photoAnnotations: [UUID: PhotoAnnotation] = [:]
 
     init(store: RouteStore) {
         self.store = store
@@ -217,6 +217,20 @@ final class MapCoordinator: NSObject, MLNMapViewDelegate {
         }
     }
 
+    // MARK: — Photo annotations
+
+    func addPhotoAnnotation(_ photo: PhotoItem, to mapView: MLNMapView) {
+        let ann = PhotoAnnotation(photo: photo)
+        ann.coordinate = photo.coordinate
+        photoAnnotations[photo.id] = ann
+        mapView.addAnnotation(ann)
+    }
+
+    func removePhotoAnnotation(id: UUID, from mapView: MLNMapView) {
+        guard let ann = photoAnnotations.removeValue(forKey: id) else { return }
+        mapView.removeAnnotation(ann)
+    }
+
     // MARK: — Hover dot
 
     func updateHoverDot(coordinate: CLLocationCoordinate2D, on mapView: MLNMapView) {
@@ -237,8 +251,20 @@ final class MapCoordinator: NSObject, MLNMapViewDelegate {
 
     // MARK: — Annotation appearance
 
+    func mapView(_ mapView: MLNMapView, viewFor annotation: MLNAnnotation) -> MLNAnnotationView? {
+        guard let photoAnn = annotation as? PhotoAnnotation else { return nil }
+        let reuseId = "photo-thumb"
+        if let reused = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? PhotoAnnotationView {
+            reused.configure(with: photoAnn.photo)
+            return reused
+        }
+        let view = PhotoAnnotationView(reuseIdentifier: reuseId)
+        view.configure(with: photoAnn.photo)
+        return view
+    }
+
     func mapView(_ mapView: MLNMapView, imageFor annotation: MLNAnnotation) -> MLNAnnotationImage? {
-        // Return a custom orange dot for hover annotation
+        guard !(annotation is PhotoAnnotation) else { return nil }
         let size = CGSize(width: 16, height: 16)
         let renderer = UIGraphicsImageRenderer(size: size)
         let img = renderer.image { ctx in
@@ -248,11 +274,46 @@ final class MapCoordinator: NSObject, MLNMapViewDelegate {
         return MLNAnnotationImage(image: img, reuseIdentifier: "hover-dot")
     }
 
-    func mapView(_ mapView: MLNMapView, annotationCanShowCallout annotation: MLNAnnotation) -> Bool {
-        false
+    func mapView(_ mapView: MLNMapView, annotationCanShowCallout annotation: MLNAnnotation) -> Bool { false }
+
+    func mapView(_ mapView: MLNMapView, didSelect annotation: MLNAnnotation) {
+        guard let photoAnn = annotation as? PhotoAnnotation else { return }
+        mapView.deselectAnnotation(annotation, animated: false)
+        store.selectedPhoto = photoAnn.photo
+    }
+}
+
+// MARK: — Photo annotation classes
+
+final class PhotoAnnotation: MLNPointAnnotation {
+    let photo: PhotoItem
+    init(photo: PhotoItem) { self.photo = photo; super.init() }
+    required init?(coder: NSCoder) { fatalError() }
+}
+
+final class PhotoAnnotationView: MLNAnnotationView {
+    private let imageView = UIImageView()
+    private let thumbSize: CGFloat = 40
+
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        frame = CGRect(x: 0, y: 0, width: thumbSize, height: thumbSize)
+        imageView.frame = bounds
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 6
+        imageView.layer.borderWidth = 1.5
+        imageView.layer.borderColor = UIColor.white.cgColor
+        addSubview(imageView)
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.4
+        layer.shadowRadius = 4
+        layer.shadowOffset = CGSize(width: 0, height: 2)
     }
 
-    // MARK: — Tap to select route
+    required init?(coder: NSCoder) { fatalError() }
 
-    func mapView(_ mapView: MLNMapView, didSelect annotation: MLNAnnotation) {}
+    func configure(with photo: PhotoItem) {
+        imageView.image = photo.image
+    }
 }

@@ -85,6 +85,38 @@ struct RouteStatsView: View {
                             .foregroundStyle(.secondary)
                     }
                 }
+
+                // Photos for this route
+                let routePhotos = store.photos.filter { $0.routeId == route.id }
+                if !routePhotos.isEmpty {
+                    Divider().overlay(.white.opacity(0.1))
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Photos (\(routePhotos.count))")
+                            .font(.system(size: 10, weight: .semibold))
+                            .foregroundStyle(.secondary)
+                            .textCase(.uppercase)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 8) {
+                                ForEach(routePhotos) { photo in
+                                    Button {
+                                        store.selectedPhoto = photo
+                                    } label: {
+                                        Image(uiImage: photo.image)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 80, height: 80)
+                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .stroke(.white.opacity(0.15), lineWidth: 1)
+                                            )
+                                    }
+                                    .buttonStyle(.plain)
+                                }
+                            }
+                        }
+                    }
+                }
             }
             .padding(16)
         }

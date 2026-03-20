@@ -7,6 +7,7 @@ final class RouteStore: ObservableObject {
     @Published var routes: [Route] = []
     @Published var photos: [PhotoItem] = []
     @Published var activeRouteId: UUID?
+    @Published var selectedPhoto: PhotoItem?
     @Published var isLoading = false
     @Published var toasts: [Toast] = []
 

@@ -68,6 +68,9 @@ struct MainView: View {
                 store.showToast("File error: \(error.localizedDescription)", type: .error)
             }
         }
+        .sheet(item: $store.selectedPhoto) { photo in
+            PhotoLightboxView(photo: photo, onDelete: { store.selectedPhoto = nil })
+        }
         .sheet(isPresented: $showPhotoPicker) {
             PhotoPickerView(store: store, userId: userId)
         }

@@ -74,6 +74,16 @@ struct MapLibreView: UIViewRepresentable {
             coord.setRouteVisible(route.id, visible: route.isVisible, on: mapView)
         }
 
+        // Sync photo annotations
+        let annotatedIds = Set(coord.photoAnnotations.keys)
+        let photoIds     = Set(store.photos.map(\.id))
+        for removed in annotatedIds.subtracting(photoIds) {
+            coord.removePhotoAnnotation(id: removed, from: mapView)
+        }
+        for photo in store.photos where !annotatedIds.contains(photo.id) {
+            coord.addPhotoAnnotation(photo, to: mapView)
+        }
+
         // Fit map to active route when selection changes
         if store.activeRouteId != coord.lastActiveRouteId {
             coord.lastActiveRouteId = store.activeRouteId
