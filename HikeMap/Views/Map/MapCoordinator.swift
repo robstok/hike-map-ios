@@ -2,6 +2,7 @@ import MapLibre
 import CoreLocation
 import SwiftUI
 
+@MainActor
 final class MapCoordinator: NSObject, MLNMapViewDelegate {
     let store: RouteStore
     weak var mapView: MLNMapView?
