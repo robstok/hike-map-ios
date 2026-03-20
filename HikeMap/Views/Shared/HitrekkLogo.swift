@@ -33,7 +33,7 @@ struct HitrekkLogoView: View {
             // Mountain stroke
             HitrekkLogoShape()
                 .stroke(color, style: StrokeStyle(lineWidth: 2 * size / 28,
-                                                   lineJoin: .round, lineCap: .round))
+                                                   lineCap: .round, lineJoin: .round))
 
             // Sun circle at (23, 6), r=2.5 in 28x28 space
             Circle()
