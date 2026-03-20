@@ -14,6 +14,13 @@ final class AppState: ObservableObject {
 
     init() {
         Task { await listenToAuth() }
+        // Watchdog: if Supabase doesn't respond in 8 s, stop showing the splash screen
+        Task {
+            try? await Task.sleep(for: .seconds(8))
+            if isLoadingAuth {
+                isLoadingAuth = false
+            }
+        }
     }
 
     // MARK: — Auth actions (update state directly, don't wait for stream)
