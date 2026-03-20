@@ -74,13 +74,18 @@ struct MapLibreView: UIViewRepresentable {
             coord.setRouteVisible(route.id, visible: route.isVisible, on: mapView)
         }
 
-        // Sync photo annotations
-        let annotatedIds = Set(coord.photoAnnotations.keys)
-        let photoIds     = Set(store.photos.map(\.id))
-        for removed in annotatedIds.subtracting(photoIds) {
+        // Only show photos whose route is visible (or unmatched photos whose route is shown)
+        let visibleRouteIds = Set(store.routes.filter(\.isVisible).map(\.id))
+        let visiblePhotos = store.photos.filter { photo in
+            guard let routeId = photo.routeId else { return false }
+            return visibleRouteIds.contains(routeId)
+        }
+        let annotatedIds  = Set(coord.photoAnnotations.keys)
+        let visiblePhotoIds = Set(visiblePhotos.map(\.id))
+        for removed in annotatedIds.subtracting(visiblePhotoIds) {
             coord.removePhotoAnnotation(id: removed, from: mapView)
         }
-        for photo in store.photos where !annotatedIds.contains(photo.id) {
+        for photo in visiblePhotos where !annotatedIds.contains(photo.id) {
             coord.addPhotoAnnotation(photo, to: mapView)
         }
 

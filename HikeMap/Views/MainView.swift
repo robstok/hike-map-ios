@@ -7,7 +7,7 @@ struct MainView: View {
     @StateObject private var store: RouteStore
 
     // Layer toggles
-    @State private var is3DEnabled   = true
+    @State private var is3DEnabled   = false
     @State private var isSatellite   = false
     @State private var isHiking      = false
 
