@@ -23,7 +23,19 @@ struct RouteStats: Codable {
     var maxSpeedKmh: Double
 }
 
+// Columns returned by SELECT — matches web app schema exactly
 struct PhotoRecord: Codable {
+    var id: String
+    var route_id: String?
+    var name: String
+    var lat: Double
+    var lon: Double
+    var photo_time: String?
+    var photo_data: String?
+}
+
+// Separate struct for INSERT — includes user_id, excludes storage_path
+private struct PhotoInsert: Encodable {
     var id: String
     var user_id: String
     var route_id: String?
@@ -31,8 +43,7 @@ struct PhotoRecord: Codable {
     var lat: Double
     var lon: Double
     var photo_time: String?
-    var storage_path: String?   // legacy Storage-based path
-    var photo_data: String?     // base64 data URL (web app format)
+    var photo_data: String
 }
 
 // MARK: — Service
@@ -91,13 +102,11 @@ final class SupabaseService {
     // MARK: — Photos
 
     func savePhoto(_ photo: PhotoItem, routeId: UUID?, userId: String, imageData: Data) async throws {
-        // Compress to JPEG and store as base64 data URL — matches web app format
-        let jpeg = UIImage(data: imageData)?
-            .jpegData(compressionQuality: 0.82) ?? imageData
+        let jpeg = UIImage(data: imageData)?.jpegData(compressionQuality: 0.82) ?? imageData
         let base64 = "data:image/jpeg;base64," + jpeg.base64EncodedString()
-
         let isoDate = photo.photoTime.map { ISO8601DateFormatter().string(from: $0) }
-        let record = PhotoRecord(
+
+        let record = PhotoInsert(
             id: photo.id.uuidString,
             user_id: userId,
             route_id: routeId?.uuidString,
@@ -105,26 +114,22 @@ final class SupabaseService {
             lat: photo.coordinate.latitude,
             lon: photo.coordinate.longitude,
             photo_time: isoDate,
-            storage_path: nil,
             photo_data: base64
         )
         try await client.from("photos").insert(record).execute()
     }
 
-    func loadPhotos(userId: String) async throws -> [PhotoRecord] {
+    func loadPhotos() async throws -> [PhotoRecord] {
+        // RLS filters to the authenticated user — no explicit user_id filter needed
+        // Column list matches web app exactly (no storage_path)
         try await client.from("photos")
-            .select()
-            .eq("user_id", value: userId)
+            .select("id, route_id, name, lat, lon, photo_time, photo_data")
+            .order("created_at", ascending: true)
             .execute()
             .value
     }
 
-    func deletePhoto(id: String, storagePath: String) async throws {
+    func deletePhoto(id: String) async throws {
         try await client.from("photos").delete().eq("id", value: id).execute()
-        try await client.storage.from("photos").remove(paths: [storagePath])
-    }
-
-    func photoURL(path: String) async throws -> URL {
-        try await client.storage.from("photos").createSignedURL(path: path, expiresIn: 3600)
     }
 }

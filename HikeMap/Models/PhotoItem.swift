@@ -10,8 +10,5 @@ struct PhotoItem: Identifiable {
     let originalFilename: String
     var routeId: UUID?
 
-    // Set after upload
-    var storagePath: String?
-    var publicURL: String?
     var dbId: String?
 }

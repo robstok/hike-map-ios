@@ -114,9 +114,11 @@ final class RouteStore: ObservableObject {
 
     func loadSavedPhotos(userId: String) async {
         do {
-            let records = try await supabaseService.loadPhotos(userId: userId)
+            let records = try await supabaseService.loadPhotos()
+            var loaded = 0
             for record in records {
-                guard let dataURL = record.photo_data,
+                guard !photos.contains(where: { $0.dbId == record.id }),
+                      let dataURL = record.photo_data,
                       let image = imageFromDataURL(dataURL)
                 else { continue }
 
@@ -125,22 +127,22 @@ final class RouteStore: ObservableObject {
                 let photoTime: Date? = record.photo_time.flatMap {
                     ISO8601DateFormatter().date(from: $0)
                 }
-                let photo = PhotoItem(
+                photos.append(PhotoItem(
                     id: UUID(uuidString: record.id) ?? UUID(),
                     image: image,
                     coordinate: coord,
                     photoTime: photoTime,
                     originalFilename: record.name,
                     routeId: routeId,
-                    storagePath: record.storage_path,
                     dbId: record.id
-                )
-                if !photos.contains(where: { $0.dbId == record.id }) {
-                    photos.append(photo)
-                }
+                ))
+                loaded += 1
+            }
+            if loaded > 0 {
+                showToast("\(loaded) photo\(loaded == 1 ? "" : "s") restored", type: .success)
             }
         } catch {
-            // Photos non-critical — fail silently
+            showToast("Couldn't load photos: \(error.localizedDescription)", type: .error)
         }
     }
 
@@ -220,8 +222,8 @@ final class RouteStore: ObservableObject {
 
     func removePhoto(_ photo: PhotoItem) {
         photos.removeAll { $0.id == photo.id }
-        if let path = photo.storagePath, let dbId = photo.dbId {
-            Task { try? await supabaseService.deletePhoto(id: dbId, storagePath: path) }
+        if let dbId = photo.dbId {
+            Task { try? await supabaseService.deletePhoto(id: dbId) }
         }
     }
 
