@@ -1,0 +1,526 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0C0F0D70A4C332DDD6E01210 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D76440B38C87B2A8592C332 /* Route.swift */; };
+		0D4FEFAA25D1A7F7F6D13CD6 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FFE81283FC46B21F52CA02 /* PhotoService.swift */; };
+		3152A36755C8F9B5E3BF73FA /* SupabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8352853307552A4AB6B2E011 /* SupabaseService.swift */; };
+		33AB95F7C4B04C535CD1937A /* ElevationChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0869F1BE0E7606609804C3 /* ElevationChartView.swift */; };
+		3C9B9B44401FD8D2BA7F6A39 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3CC0EB1AB4D54150AF330D /* MapCoordinator.swift */; };
+		5147B5C91F4B9273926A5248 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E69E21102695F237D3BABE /* MainView.swift */; };
+		56D41FF32DCB5FA51BCE9CB0 /* RouteStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83835C920365639D03734FBA /* RouteStatsView.swift */; };
+		5CB805D5D5883D6A88DBECE4 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 397EFCDCF76589A74AF7DF72 /* Supabase */; };
+		7A87F81E175C1FAA69AF1A37 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F86E437A6378C2754356695 /* AppState.swift */; };
+		89DEC54C0E3EB2633093AF60 /* GPXPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AE4FAD1D73A3AD27C7A5E3 /* GPXPoint.swift */; };
+		95B67CFD5D64445271B065B3 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857FCF857AC15FB4C8BAE417 /* Config.swift */; };
+		976350A90317FEDB7FE3142D /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B38451CB68DF46F12226CB /* AnalyticsService.swift */; };
+		977F8DACBF9E0EBE79871A2E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9873629D23F98B704DC692BA /* ContentView.swift */; };
+		A5053BCF26CAE5FA4AD2ABC7 /* MapLibreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578E15A8DAFED407F83B7753 /* MapLibreView.swift */; };
+		C45AA0445679EF8FB6D43FB5 /* RouteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8765C0F2FAF0E041625DCF /* RouteListView.swift */; };
+		CC91EC7584D2C21511A8E98B /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4A6BD1B18872E261D9A7C2 /* AuthView.swift */; };
+		D4C60AB69C9070398A2A93FE /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55642B12C1C3C4156F0227C7 /* RouteStore.swift */; };
+		D87E83CB236E67A22696C35B /* HikeMapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522C4EFBDCCD4C0D1DC73EC6 /* HikeMapApp.swift */; };
+		DD1687EDDF5EBEE0B289821A /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4831FC5F9D1CCC661FB6DA49 /* ToastView.swift */; };
+		DEEBD9F941F3CC5B7F2D7B55 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B82CC30BA50363F58FC1C1 /* GPXParser.swift */; };
+		E5391B8D99D100A4C260F8E2 /* PhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670C8622B188D9A428C68AE3 /* PhotoItem.swift */; };
+		E5E7CD30A264D898409F97C8 /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26382B2209E9B9467B245354 /* PhotoPickerView.swift */; };
+		EC06FF1DB8BCF2A2D572870A /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83535581872FEACCF7709EA /* DashboardView.swift */; };
+		EF7638971E01BB98B005225D /* MapLibre in Frameworks */ = {isa = PBXBuildFile; productRef = 1EE7F0D8707D9794E8049566 /* MapLibre */; };
+		F99FF2D58DDD05EAAB06EE49 /* SpeedAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701956AE50E3AA480DB221C /* SpeedAnalytics.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0D76440B38C87B2A8592C332 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		1F86E437A6378C2754356695 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		26382B2209E9B9467B245354 /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
+		2B8765C0F2FAF0E041625DCF /* RouteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteListView.swift; sourceTree = "<group>"; };
+		4831FC5F9D1CCC661FB6DA49 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		522C4EFBDCCD4C0D1DC73EC6 /* HikeMapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikeMapApp.swift; sourceTree = "<group>"; };
+		55642B12C1C3C4156F0227C7 /* RouteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStore.swift; sourceTree = "<group>"; };
+		578E15A8DAFED407F83B7753 /* MapLibreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLibreView.swift; sourceTree = "<group>"; };
+		66FFE81283FC46B21F52CA02 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
+		670C8622B188D9A428C68AE3 /* PhotoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoItem.swift; sourceTree = "<group>"; };
+		6CE41A1241C98132F3583A28 /* HikeMap.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = HikeMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8352853307552A4AB6B2E011 /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
+		83835C920365639D03734FBA /* RouteStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStatsView.swift; sourceTree = "<group>"; };
+		857FCF857AC15FB4C8BAE417 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		8701956AE50E3AA480DB221C /* SpeedAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedAnalytics.swift; sourceTree = "<group>"; };
+		87AE4FAD1D73A3AD27C7A5E3 /* GPXPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXPoint.swift; sourceTree = "<group>"; };
+		92E69E21102695F237D3BABE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		95D55B52296A9FFBC871F355 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9873629D23F98B704DC692BA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AE0869F1BE0E7606609804C3 /* ElevationChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationChartView.swift; sourceTree = "<group>"; };
+		B83535581872FEACCF7709EA /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		CF4A6BD1B18872E261D9A7C2 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		E0B38451CB68DF46F12226CB /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
+		ED3CC0EB1AB4D54150AF330D /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
+		F6B82CC30BA50363F58FC1C1 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		60E5E102713EC33E5D993809 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CB805D5D5883D6A88DBECE4 /* Supabase in Frameworks */,
+				EF7638971E01BB98B005225D /* MapLibre in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		006D5B2A77F93F95E142BBDD = {
+			isa = PBXGroup;
+			children = (
+				C1F99407D278AB949586DBB0 /* HikeMap */,
+				6350F78431241D57E2F800C1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5188E5CD742B2C8182459DAE /* App */ = {
+			isa = PBXGroup;
+			children = (
+				1F86E437A6378C2754356695 /* AppState.swift */,
+				857FCF857AC15FB4C8BAE417 /* Config.swift */,
+				522C4EFBDCCD4C0D1DC73EC6 /* HikeMapApp.swift */,
+				95D55B52296A9FFBC871F355 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		571B0008D3C12490852C407C /* Elevation */ = {
+			isa = PBXGroup;
+			children = (
+				AE0869F1BE0E7606609804C3 /* ElevationChartView.swift */,
+			);
+			path = Elevation;
+			sourceTree = "<group>";
+		};
+		5F101B24E697A0D3765C0389 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				26382B2209E9B9467B245354 /* PhotoPickerView.swift */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
+		61E77FDDECCCF93B775371F0 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				ED3CC0EB1AB4D54150AF330D /* MapCoordinator.swift */,
+				578E15A8DAFED407F83B7753 /* MapLibreView.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		6350F78431241D57E2F800C1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6CE41A1241C98132F3583A28 /* HikeMap.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		898E9E3782D596F1421E351B /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				4831FC5F9D1CCC661FB6DA49 /* ToastView.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		A8534A3F1063F626B9027070 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				B83535581872FEACCF7709EA /* DashboardView.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		C086A459FAB4D6BACBA0BE55 /* Routes */ = {
+			isa = PBXGroup;
+			children = (
+				2B8765C0F2FAF0E041625DCF /* RouteListView.swift */,
+				83835C920365639D03734FBA /* RouteStatsView.swift */,
+			);
+			path = Routes;
+			sourceTree = "<group>";
+		};
+		C1F99407D278AB949586DBB0 /* HikeMap */ = {
+			isa = PBXGroup;
+			children = (
+				5188E5CD742B2C8182459DAE /* App */,
+				E41EF2EB6941CA7C24F70928 /* Models */,
+				F2ECA022161970052C377E8F /* Services */,
+				C90CC5B736139D9DB8146CF3 /* Views */,
+			);
+			path = HikeMap;
+			sourceTree = "<group>";
+		};
+		C90CC5B736139D9DB8146CF3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9873629D23F98B704DC692BA /* ContentView.swift */,
+				92E69E21102695F237D3BABE /* MainView.swift */,
+				EB9FD80C796456B7244848FB /* Auth */,
+				A8534A3F1063F626B9027070 /* Dashboard */,
+				571B0008D3C12490852C407C /* Elevation */,
+				61E77FDDECCCF93B775371F0 /* Map */,
+				5F101B24E697A0D3765C0389 /* Photos */,
+				C086A459FAB4D6BACBA0BE55 /* Routes */,
+				898E9E3782D596F1421E351B /* Shared */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E41EF2EB6941CA7C24F70928 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				87AE4FAD1D73A3AD27C7A5E3 /* GPXPoint.swift */,
+				670C8622B188D9A428C68AE3 /* PhotoItem.swift */,
+				0D76440B38C87B2A8592C332 /* Route.swift */,
+				8701956AE50E3AA480DB221C /* SpeedAnalytics.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EB9FD80C796456B7244848FB /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				CF4A6BD1B18872E261D9A7C2 /* AuthView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		F2ECA022161970052C377E8F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E0B38451CB68DF46F12226CB /* AnalyticsService.swift */,
+				F6B82CC30BA50363F58FC1C1 /* GPXParser.swift */,
+				66FFE81283FC46B21F52CA02 /* PhotoService.swift */,
+				55642B12C1C3C4156F0227C7 /* RouteStore.swift */,
+				8352853307552A4AB6B2E011 /* SupabaseService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7DA0F799429771E98398CB93 /* HikeMap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C871C563A2586DEE88E9E9E7 /* Build configuration list for PBXNativeTarget "HikeMap" */;
+			buildPhases = (
+				20297C8265D4BD33B27FF059 /* Sources */,
+				60E5E102713EC33E5D993809 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HikeMap;
+			packageProductDependencies = (
+				397EFCDCF76589A74AF7DF72 /* Supabase */,
+				1EE7F0D8707D9794E8049566 /* MapLibre */,
+			);
+			productName = HikeMap;
+			productReference = 6CE41A1241C98132F3583A28 /* HikeMap.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D314E0B1B29D08D6F4E7A272 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					7DA0F799429771E98398CB93 = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = 516B927615F83A984259B691 /* Build configuration list for PBXProject "HikeMap" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 006D5B2A77F93F95E142BBDD;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				380DF67306434380CE1EF298 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
+				1254AA84E55521A4670C3F01 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 6350F78431241D57E2F800C1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7DA0F799429771E98398CB93 /* HikeMap */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		20297C8265D4BD33B27FF059 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				976350A90317FEDB7FE3142D /* AnalyticsService.swift in Sources */,
+				7A87F81E175C1FAA69AF1A37 /* AppState.swift in Sources */,
+				CC91EC7584D2C21511A8E98B /* AuthView.swift in Sources */,
+				95B67CFD5D64445271B065B3 /* Config.swift in Sources */,
+				977F8DACBF9E0EBE79871A2E /* ContentView.swift in Sources */,
+				EC06FF1DB8BCF2A2D572870A /* DashboardView.swift in Sources */,
+				33AB95F7C4B04C535CD1937A /* ElevationChartView.swift in Sources */,
+				DEEBD9F941F3CC5B7F2D7B55 /* GPXParser.swift in Sources */,
+				89DEC54C0E3EB2633093AF60 /* GPXPoint.swift in Sources */,
+				D87E83CB236E67A22696C35B /* HikeMapApp.swift in Sources */,
+				5147B5C91F4B9273926A5248 /* MainView.swift in Sources */,
+				3C9B9B44401FD8D2BA7F6A39 /* MapCoordinator.swift in Sources */,
+				A5053BCF26CAE5FA4AD2ABC7 /* MapLibreView.swift in Sources */,
+				E5391B8D99D100A4C260F8E2 /* PhotoItem.swift in Sources */,
+				E5E7CD30A264D898409F97C8 /* PhotoPickerView.swift in Sources */,
+				0D4FEFAA25D1A7F7F6D13CD6 /* PhotoService.swift in Sources */,
+				0C0F0D70A4C332DDD6E01210 /* Route.swift in Sources */,
+				C45AA0445679EF8FB6D43FB5 /* RouteListView.swift in Sources */,
+				56D41FF32DCB5FA51BCE9CB0 /* RouteStatsView.swift in Sources */,
+				D4C60AB69C9070398A2A93FE /* RouteStore.swift in Sources */,
+				F99FF2D58DDD05EAAB06EE49 /* SpeedAnalytics.swift in Sources */,
+				3152A36755C8F9B5E3BF73FA /* SupabaseService.swift in Sources */,
+				DD1687EDDF5EBEE0B289821A /* ToastView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		025B264E140D0A31778E774D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = HikeMap/App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hitrekk.hikemap;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2425DC38B614BB27E2B3AD3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		79326785D2BD96FC3D5DC1B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = HikeMap/App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hitrekk.hikemap;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		964B49185A92D06D065DEF3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		516B927615F83A984259B691 /* Build configuration list for PBXProject "HikeMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				964B49185A92D06D065DEF3F /* Debug */,
+				2425DC38B614BB27E2B3AD3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C871C563A2586DEE88E9E9E7 /* Build configuration list for PBXNativeTarget "HikeMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				025B264E140D0A31778E774D /* Debug */,
+				79326785D2BD96FC3D5DC1B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1254AA84E55521A4670C3F01 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.0;
+			};
+		};
+		380DF67306434380CE1EF298 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1EE7F0D8707D9794E8049566 /* MapLibre */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 380DF67306434380CE1EF298 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
+			productName = MapLibre;
+		};
+		397EFCDCF76589A74AF7DF72 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1254AA84E55521A4670C3F01 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = D314E0B1B29D08D6F4E7A272 /* Project object */;
+}
