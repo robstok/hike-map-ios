@@ -45,7 +45,7 @@ struct RouteListView: View {
                             .foregroundStyle(Color(hex: "#EF4444"))
                     }
                 }
-                .listRowInsets(EdgeInsets())
+                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
 
                 // One section per year
                 ForEach(groupedRoutes, id: \.year) { group in
