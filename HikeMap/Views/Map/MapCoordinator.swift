@@ -46,7 +46,6 @@ final class MapCoordinator: NSObject, MLNMapViewDelegate {
 
         let hillshade = MLNHillshadeStyleLayer(identifier: "hillshade", source: demSource)
         hillshade.hillshadeExaggeration = NSExpression(forConstantValue: NSNumber(value: 0.35))
-        hillshade.hillshadeHighlightColor = NSExpression(forConstantValue: UIColor.white.withAlphaComponent(0.1))
         // Insert hillshade before labels
         if let firstSymbol = style.layers.first(where: { $0 is MLNSymbolStyleLayer }) {
             style.insertLayer(hillshade, below: firstSymbol)
@@ -140,7 +139,7 @@ final class MapCoordinator: NSObject, MLNMapViewDelegate {
 
         // Casing (dark border)
         let casing = MLNLineStyleLayer(identifier: "route-casing-\(route.id)", source: source)
-        casing.lineColor = NSExpression(forConstantValue: UIColor.black.withAlphaComponent(0.4))
+        casing.lineColor = NSExpression(forConstantValue: UIColor(red: 0, green: 0, blue: 0, alpha: 0.4))
         casing.lineWidth = NSExpression(forConstantValue: 6)
         casing.lineJoin  = NSExpression(forConstantValue: "round")
         casing.lineCap   = NSExpression(forConstantValue: "round")
