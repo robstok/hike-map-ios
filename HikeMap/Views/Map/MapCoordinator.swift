@@ -178,21 +178,16 @@ final class MapCoordinator: NSObject, MLNMapViewDelegate {
         style.addLayer(line2)
 
         renderedRouteIds.append(route.id)
-
-        // Fit bounds if this is the first / only route, or auto-fit
-        if let bounds = route.routeData.bounds {
-            let sw = CLLocationCoordinate2D(latitude: bounds.sw.latitude - 0.01, longitude: bounds.sw.longitude - 0.01)
-            let ne = CLLocationCoordinate2D(latitude: bounds.ne.latitude + 0.01, longitude: bounds.ne.longitude + 0.01)
-            let coordBounds = MLNCoordinateBounds(sw: sw, ne: ne)
-            mapView.setVisibleCoordinateBounds(coordBounds, edgePadding: UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40), animated: true)
-        }
+        // Don't auto-fit here — fitBounds is driven by activeRouteId changes
     }
 
     func fitBounds(_ bounds: (sw: CLLocationCoordinate2D, ne: CLLocationCoordinate2D), on mapView: MLNMapView) {
-        let sw = CLLocationCoordinate2D(latitude: bounds.sw.latitude - 0.01, longitude: bounds.sw.longitude - 0.01)
-        let ne = CLLocationCoordinate2D(latitude: bounds.ne.latitude + 0.01, longitude: bounds.ne.longitude + 0.01)
-        let coordBounds = MLNCoordinateBounds(sw: sw, ne: ne)
-        mapView.setVisibleCoordinateBounds(coordBounds,
+        // Pad generously so the route sits in context with surrounding area
+        let latPad = max(0.05, (bounds.ne.latitude  - bounds.sw.latitude)  * 0.3)
+        let lonPad = max(0.05, (bounds.ne.longitude - bounds.sw.longitude) * 0.3)
+        let sw = CLLocationCoordinate2D(latitude: bounds.sw.latitude  - latPad, longitude: bounds.sw.longitude - lonPad)
+        let ne = CLLocationCoordinate2D(latitude: bounds.ne.latitude  + latPad, longitude: bounds.ne.longitude + lonPad)
+        mapView.setVisibleCoordinateBounds(MLNCoordinateBounds(sw: sw, ne: ne),
             edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: 120, right: 40),
             animated: true)
     }
@@ -281,6 +276,34 @@ final class MapCoordinator: NSObject, MLNMapViewDelegate {
         mapView.deselectAnnotation(annotation, animated: false)
         store.selectedPhoto = photoAnn.photo
     }
+
+    // MARK: — Tap gesture (route selection)
+
+    func installTapGesture(on mapView: MLNMapView) {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleMapTap(_:)))
+        for existing in mapView.gestureRecognizers ?? [] {
+            tap.require(toFail: existing)
+        }
+        mapView.addGestureRecognizer(tap)
+    }
+
+    @objc func handleMapTap(_ gesture: UITapGestureRecognizer) {
+        guard let mapView, gesture.state == .ended else { return }
+        let point = gesture.location(in: mapView)
+        let rect  = CGRect(x: point.x - 22, y: point.y - 22, width: 44, height: 44)
+        for routeId in renderedRouteIds {
+            let features = mapView.visibleFeatures(
+                in: rect,
+                styleLayerIdentifiers: ["route-line-\(routeId)", "route-casing-\(routeId)"]
+            )
+            if !features.isEmpty,
+               let route = store.routes.first(where: { $0.id == routeId }) {
+                store.activate(route)
+                return
+            }
+        }
+    }
+
 }
 
 // MARK: — Photo annotation classes

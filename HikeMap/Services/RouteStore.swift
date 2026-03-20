@@ -106,9 +106,17 @@ final class RouteStore: ObservableObject {
                     }
                 }
             }
+            // Activate the most recent route so the map fits to it on open
+            if let latest = routes.max(by: { routeSortKey($0) < routeSortKey($1) }) {
+                activeRouteId = latest.id
+            }
         } catch {
             showToast("Couldn't load saved routes", type: .error)
         }
+    }
+
+    private func routeSortKey(_ route: Route) -> String {
+        route.hikeDate ?? DateFormatter.hikeDateFormatter.string(from: route.createdAt)
     }
 
     // MARK: — Load saved photos

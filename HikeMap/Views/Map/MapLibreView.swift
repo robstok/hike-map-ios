@@ -31,6 +31,7 @@ struct MapLibreView: UIViewRepresentable {
         mapView.maximumPitch = 85
 
         context.coordinator.mapView = mapView
+        context.coordinator.installTapGesture(on: mapView)
         return mapView
     }
 
