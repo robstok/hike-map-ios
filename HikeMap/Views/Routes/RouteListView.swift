@@ -7,30 +7,21 @@ struct RouteListView: View {
     @Binding var showFilePicker: Bool
     @Binding var showPhotoPicker: Bool
 
+    /// Routes sorted newest-first, grouped by year
+    private var groupedRoutes: [(year: String, routes: [Route])] {
+        let sorted = store.routes.sorted { a, b in
+            routeSortKey(a) > routeSortKey(b)
+        }
+        var byYear: [String: [Route]] = [:]
+        for route in sorted {
+            let year = routeYear(route)
+            byYear[year, default: []].append(route)
+        }
+        return byYear.keys.sorted(by: >).map { year in (year, byYear[year]!) }
+    }
+
     var body: some View {
         List {
-            Section {
-                ForEach(store.routes) { route in
-                    RouteRow(route: route, store: store, userId: userId)
-                }
-                .onDelete { offsets in
-                    offsets.forEach { store.removeRoute(store.routes[$0]) }
-                }
-            } header: {
-                HStack {
-                    Text("Routes (\(store.routes.count))")
-                        .font(.system(size: 11, weight: .semibold))
-                        .foregroundStyle(.secondary)
-                        .textCase(.uppercase)
-                    Spacer()
-                    if !store.routes.isEmpty {
-                        Button("Clear All") { store.clearAll() }
-                            .font(.system(size: 11))
-                            .foregroundStyle(Color(hex: "#EF4444"))
-                    }
-                }
-            }
-
             if store.routes.isEmpty {
                 ContentUnavailableView {
                     Label("No Routes", systemImage: "map.fill")
@@ -38,6 +29,37 @@ struct RouteListView: View {
                     Text("Import a GPX file to get started")
                 }
                 .listRowBackground(Color.clear)
+            } else {
+                // Clear all header
+                Section {
+                    EmptyView()
+                } header: {
+                    HStack {
+                        Text("\(store.routes.count) route\(store.routes.count == 1 ? "" : "s")")
+                            .font(.system(size: 11, weight: .semibold))
+                            .foregroundStyle(.secondary)
+                            .textCase(.uppercase)
+                        Spacer()
+                        Button("Clear All") { store.clearAll() }
+                            .font(.system(size: 11))
+                            .foregroundStyle(Color(hex: "#EF4444"))
+                    }
+                }
+                .listRowInsets(EdgeInsets())
+
+                // One section per year
+                ForEach(groupedRoutes, id: \.year) { group in
+                    Section {
+                        ForEach(group.routes) { route in
+                            RouteRow(route: route, store: store, userId: userId)
+                        }
+                    } header: {
+                        Text(group.year)
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundStyle(.secondary)
+                            .textCase(.uppercase)
+                    }
+                }
             }
         }
         .listStyle(.plain)
@@ -67,6 +89,18 @@ struct RouteListView: View {
             .background(.ultraThinMaterial)
         }
     }
+
+    // MARK: — Helpers
+
+    private func routeSortKey(_ route: Route) -> String {
+        route.hikeDate
+            ?? DateFormatter.hikeDateFormatter.string(from: route.createdAt)
+    }
+
+    private func routeYear(_ route: Route) -> String {
+        let key = routeSortKey(route)
+        return key.count >= 4 ? String(key.prefix(4)) : "Unknown"
+    }
 }
 
 // MARK: — Individual route row
@@ -94,7 +128,7 @@ struct RouteRow: View {
             }
             .buttonStyle(.plain)
 
-            // Name (tap to rename, tap to activate)
+            // Name
             if isRenaming {
                 TextField("Route name", text: $newName, onCommit: {
                     if !newName.isEmpty { store.renameRoute(route, to: newName) }
@@ -106,10 +140,17 @@ struct RouteRow: View {
                 Button {
                     store.activate(route)
                 } label: {
-                    Text(route.name)
-                        .font(.system(size: 13, weight: isActive ? .semibold : .regular))
-                        .foregroundStyle(isActive ? Config.accent : .primary)
-                        .lineLimit(1)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(route.name)
+                            .font(.system(size: 13, weight: isActive ? .semibold : .regular))
+                            .foregroundStyle(isActive ? Config.accent : .primary)
+                            .lineLimit(1)
+                        if let date = route.hikeDate {
+                            Text(formatDate(date))
+                                .font(.system(size: 10))
+                                .foregroundStyle(.secondary)
+                        }
+                    }
                 }
                 .buttonStyle(.plain)
             }
@@ -160,6 +201,17 @@ struct RouteRow: View {
                 Label("Delete", systemImage: "trash")
             }
         }
+    }
+
+    private func formatDate(_ yyyy_mm_dd: String) -> String {
+        let f = DateFormatter()
+        f.dateFormat = "yyyy-MM-dd"
+        f.locale = Locale(identifier: "en_US_POSIX")
+        guard let date = f.date(from: yyyy_mm_dd) else { return yyyy_mm_dd }
+        let out = DateFormatter()
+        out.dateStyle = .medium
+        out.timeStyle = .none
+        return out.string(from: date)
     }
 }
 

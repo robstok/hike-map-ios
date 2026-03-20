@@ -8,9 +8,10 @@ final class MapCoordinator: NSObject, MLNMapViewDelegate {
     weak var mapView: MLNMapView?
 
     var renderedRouteIds: [UUID] = []
-    var lastIs3DEnabled       = false
+    var lastIs3DEnabled        = false
     var lastIsSatelliteEnabled = false
-    var lastIsHikingEnabled   = false
+    var lastIsHikingEnabled    = false
+    var lastActiveRouteId: UUID? = nil
 
     // Annotation for hover dot
     private var hoverAnnotation: MLNPointAnnotation?
@@ -162,6 +163,15 @@ final class MapCoordinator: NSObject, MLNMapViewDelegate {
             let coordBounds = MLNCoordinateBounds(sw: sw, ne: ne)
             mapView.setVisibleCoordinateBounds(coordBounds, edgePadding: UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40), animated: true)
         }
+    }
+
+    func fitBounds(_ bounds: (sw: CLLocationCoordinate2D, ne: CLLocationCoordinate2D), on mapView: MLNMapView) {
+        let sw = CLLocationCoordinate2D(latitude: bounds.sw.latitude - 0.01, longitude: bounds.sw.longitude - 0.01)
+        let ne = CLLocationCoordinate2D(latitude: bounds.ne.latitude + 0.01, longitude: bounds.ne.longitude + 0.01)
+        let coordBounds = MLNCoordinateBounds(sw: sw, ne: ne)
+        mapView.setVisibleCoordinateBounds(coordBounds,
+            edgePadding: UIEdgeInsets(top: 60, left: 40, bottom: 120, right: 40),
+            animated: true)
     }
 
     func removeRouteLayer(id: UUID, from mapView: MLNMapView) {

@@ -73,6 +73,14 @@ struct MapLibreView: UIViewRepresentable {
             coord.setRouteVisible(route.id, visible: route.isVisible, on: mapView)
         }
 
+        // Fit map to active route when selection changes
+        if store.activeRouteId != coord.lastActiveRouteId {
+            coord.lastActiveRouteId = store.activeRouteId
+            if let route = store.activeRoute, let bounds = route.routeData.bounds {
+                coord.fitBounds(bounds, on: mapView)
+            }
+        }
+
         // Hover dot
         if let hc = hoverCoordinate {
             coord.updateHoverDot(coordinate: hc, on: mapView)
