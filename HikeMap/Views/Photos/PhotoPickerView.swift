@@ -106,10 +106,8 @@ struct PhotoMarkersView: View {
                 }
             }
         }
-        .sheet(item: $selectedPhoto) { photo in
-            PhotoLightboxView(photo: photo, onDelete: {
-                selectedPhoto = nil
-            })
+        .sheet(item: $selectedPhoto) { _ in
+            EmptyView() // photo markers not used — map annotations handle taps via RouteStore
         }
     }
 }
