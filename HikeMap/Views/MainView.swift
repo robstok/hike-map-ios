@@ -236,7 +236,7 @@ struct MainView: View {
                 }
                 Spacer()
                 Button {
-                    Task { try? await appState.supabase.auth.signOut() }
+                    Task { try? await appState.signOut() }
                 } label: {
                     Image(systemName: "rectangle.portrait.and.arrow.right")
                         .font(.system(size: 14))

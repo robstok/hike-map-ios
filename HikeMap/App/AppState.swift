@@ -16,20 +16,50 @@ final class AppState: ObservableObject {
         Task { await listenToAuth() }
     }
 
+    // MARK: — Auth actions (update state directly, don't wait for stream)
+
+    func signIn(email: String, password: String) async throws {
+        let session = try await supabase.auth.signIn(email: email, password: password)
+        currentUser = session.user
+        isAuthenticated = true
+    }
+
+    func signUp(email: String, password: String, fullName: String) async throws {
+        try await supabase.auth.signUp(
+            email: email,
+            password: password,
+            data: ["full_name": .string(fullName)]
+        )
+        // Don't set isAuthenticated — user must confirm email first
+    }
+
+    func signOut() async throws {
+        try await supabase.auth.signOut()
+        currentUser = nil
+        isAuthenticated = false
+    }
+
+    func resetPassword(email: String) async throws {
+        try await supabase.auth.resetPasswordForEmail(email)
+    }
+
+    // MARK: — Stream listener (handles token refresh, remote sign-out, app relaunch)
+
     private func listenToAuth() async {
-        isLoadingAuth = true
         for await (event, session) in supabase.auth.authStateChanges {
             switch event {
-            case .initialSession, .signedIn, .tokenRefreshed, .userUpdated:
+            case .initialSession:
                 currentUser = session?.user
                 isAuthenticated = session != nil
-            case .signedOut, .passwordRecovery, .userDeleted:
+                isLoadingAuth = false
+            case .tokenRefreshed, .userUpdated:
+                currentUser = session?.user
+            case .signedOut, .userDeleted:
                 currentUser = nil
                 isAuthenticated = false
             default:
                 break
             }
-            isLoadingAuth = false
         }
     }
 

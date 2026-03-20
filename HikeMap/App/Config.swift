@@ -4,7 +4,7 @@ import CoreLocation
 enum Config {
     // MARK: — Supabase
     static let supabaseURL    = "https://hhtcmtozzehiualfcksn.supabase.co"
-    static let supabaseAnonKey = "sb_publishable_Pd5D+FedIJf8n2j5rVbU0w_tAi3s/Yb4kfZJzEMQ0Hk"
+    static let supabaseAnonKey = "sb_publishable_tIVuDKuz8ngzUIVfDojI-Q_-sIpxvDi"
 
     // MARK: — Map
     static let mapStyleURL     = "https://tiles.openfreemap.org/styles/liberty"

@@ -150,7 +150,7 @@ struct SignInForm: View {
     private func signIn() async {
         isLoading = true; errorMessage = ""
         do {
-            try await appState.supabase.auth.signIn(email: email, password: password)
+            try await appState.signIn(email: email, password: password)
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -204,10 +204,7 @@ struct SignUpForm: View {
         guard password == confirm else { message = "Passwords don't match"; return }
         isLoading = true; message = ""
         do {
-            try await appState.supabase.auth.signUp(
-                email: email, password: password,
-                data: ["full_name": .string(fullName)]
-            )
+            try await appState.signUp(email: email, password: password, fullName: fullName)
             isSuccess = true
             message = "Check your email to confirm your account"
         } catch {
@@ -268,7 +265,7 @@ struct ForgotPasswordForm: View {
     private func reset() async {
         isLoading = true; message = ""
         do {
-            try await appState.supabase.auth.resetPasswordForEmail(email)
+            try await appState.resetPassword(email: email)
             isSuccess = true; message = "Check your email for a reset link"
         } catch {
             isSuccess = false; message = error.localizedDescription
