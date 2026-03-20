@@ -188,14 +188,22 @@ struct MainView: View {
                 .buttonStyle(.plain)
             }
 
-            // Dashboard button
-            Button {
-                showDashboard = true
+            // Profile menu (stats + sign out)
+            Menu {
+                Button { showDashboard = true } label: {
+                    Label("All-Time Stats", systemImage: "chart.bar.fill")
+                }
+                Divider()
+                Button(role: .destructive) {
+                    Task { try? await appState.signOut() }
+                } label: {
+                    Label("Sign Out", systemImage: "rectangle.portrait.and.arrow.right")
+                }
             } label: {
                 VStack(spacing: 4) {
-                    Image(systemName: "chart.bar.fill")
+                    Image(systemName: "person.circle")
                         .font(.system(size: 20))
-                    Text("Stats")
+                    Text("Account")
                         .font(.system(size: 10))
                 }
                 .frame(maxWidth: .infinity)
