@@ -130,8 +130,9 @@ struct PhotoMarker: View {
 
 struct PhotoLightboxView: View {
     let photo: PhotoItem
-    var onDelete: () -> Void
+    @ObservedObject var store: RouteStore
     @Environment(\.dismiss) private var dismiss
+    @State private var showDeleteConfirm = false
 
     var body: some View {
         NavigationStack {
@@ -150,6 +151,14 @@ struct PhotoLightboxView: View {
                             .font(.system(size: 24))
                     }
                 }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showDeleteConfirm = true
+                    } label: {
+                        Image(systemName: "trash")
+                            .foregroundStyle(.red)
+                    }
+                }
                 ToolbarItem(placement: .bottomBar) {
                     VStack(spacing: 2) {
                         if let date = photo.photoTime {
@@ -163,6 +172,16 @@ struct PhotoLightboxView: View {
             }
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbarColorScheme(.dark, for: .navigationBar)
+            .confirmationDialog("Delete Photo", isPresented: $showDeleteConfirm, titleVisibility: .visible) {
+                Button("Delete", role: .destructive) {
+                    store.removePhoto(photo)
+                    store.selectedPhoto = nil
+                    dismiss()
+                }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("This will permanently delete the photo.")
+            }
         }
     }
 }

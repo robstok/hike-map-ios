@@ -90,35 +90,96 @@ struct RouteStatsView: View {
                 let routePhotos = store.photos.filter { $0.routeId == route.id }
                 if !routePhotos.isEmpty {
                     Divider().overlay(.white.opacity(0.1))
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Photos (\(routePhotos.count))")
-                            .font(.system(size: 10, weight: .semibold))
-                            .foregroundStyle(.secondary)
-                            .textCase(.uppercase)
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 8) {
-                                ForEach(routePhotos) { photo in
-                                    Button {
-                                        store.selectedPhoto = photo
-                                    } label: {
-                                        Image(uiImage: photo.image)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 80, height: 80)
-                                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                                            .overlay(
-                                                RoundedRectangle(cornerRadius: 8)
-                                                    .stroke(.white.opacity(0.15), lineWidth: 1)
-                                            )
-                                    }
-                                    .buttonStyle(.plain)
-                                }
-                            }
-                        }
-                    }
+                    RoutePhotosStrip(photos: routePhotos, store: store)
                 }
             }
             .padding(16)
+        }
+    }
+}
+
+// MARK: — Photo strip with select + delete
+
+struct RoutePhotosStrip: View {
+    let photos: [PhotoItem]
+    @ObservedObject var store: RouteStore
+    @State private var isSelecting = false
+    @State private var selected: Set<UUID> = []
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text("Photos (\(photos.count))")
+                    .font(.system(size: 10, weight: .semibold))
+                    .foregroundStyle(.secondary)
+                    .textCase(.uppercase)
+                Spacer()
+                if isSelecting {
+                    if !selected.isEmpty {
+                        Button {
+                            for id in selected {
+                                if let photo = photos.first(where: { $0.id == id }) {
+                                    store.removePhoto(photo)
+                                }
+                            }
+                            selected = []
+                            isSelecting = false
+                        } label: {
+                            Label("Delete (\(selected.count))", systemImage: "trash")
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundStyle(.red)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    Button("Done") { isSelecting = false; selected = [] }
+                        .font(.system(size: 11, weight: .semibold))
+                        .foregroundStyle(Config.accent)
+                } else {
+                    Button("Select") { isSelecting = true }
+                        .font(.system(size: 11))
+                        .foregroundStyle(Config.accent)
+                }
+            }
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    ForEach(photos) { photo in
+                        let isSelected = selected.contains(photo.id)
+                        Button {
+                            if isSelecting {
+                                if isSelected { selected.remove(photo.id) }
+                                else { selected.insert(photo.id) }
+                            } else {
+                                store.selectedPhoto = photo
+                            }
+                        } label: {
+                            ZStack(alignment: .topTrailing) {
+                                Image(uiImage: photo.image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 80, height: 80)
+                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .stroke(isSelected ? Config.accent : .white.opacity(0.15),
+                                                    lineWidth: isSelected ? 2.5 : 1)
+                                    )
+                                    .opacity(isSelecting && !isSelected ? 0.6 : 1)
+
+                                if isSelecting {
+                                    Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                                        .font(.system(size: 16))
+                                        .foregroundStyle(isSelected ? Config.accent : .white)
+                                        .shadow(radius: 2)
+                                        .padding(4)
+                                }
+                            }
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                .padding(.bottom, 2)
+            }
         }
     }
 }

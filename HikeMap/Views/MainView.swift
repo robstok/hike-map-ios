@@ -69,7 +69,7 @@ struct MainView: View {
             }
         }
         .sheet(item: $store.selectedPhoto) { photo in
-            PhotoLightboxView(photo: photo, onDelete: { store.selectedPhoto = nil })
+            PhotoLightboxView(photo: photo, store: store)
         }
         .sheet(isPresented: $showPhotoPicker) {
             PhotoPickerView(store: store, userId: userId)
@@ -211,7 +211,7 @@ struct MainView: View {
                         .font(.system(size: 10))
                 }
                 .frame(maxWidth: .infinity)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Config.accent)
             }
         }
         .padding(.top, 10)
