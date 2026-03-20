@@ -110,6 +110,46 @@ final class RouteStore: ObservableObject {
         }
     }
 
+    // MARK: — Load saved photos
+
+    func loadSavedPhotos(userId: String) async {
+        do {
+            let records = try await supabaseService.loadPhotos(userId: userId)
+            for record in records {
+                guard let dataURL = record.photo_data,
+                      let image = imageFromDataURL(dataURL)
+                else { continue }
+
+                let routeId = record.route_id.flatMap { UUID(uuidString: $0) }
+                let coord = CLLocationCoordinate2D(latitude: record.lat, longitude: record.lon)
+                let photoTime: Date? = record.photo_time.flatMap {
+                    ISO8601DateFormatter().date(from: $0)
+                }
+                let photo = PhotoItem(
+                    id: UUID(uuidString: record.id) ?? UUID(),
+                    image: image,
+                    coordinate: coord,
+                    photoTime: photoTime,
+                    originalFilename: record.name,
+                    routeId: routeId,
+                    storagePath: record.storage_path,
+                    dbId: record.id
+                )
+                if !photos.contains(where: { $0.dbId == record.id }) {
+                    photos.append(photo)
+                }
+            }
+        } catch {
+            // Photos non-critical — fail silently
+        }
+    }
+
+    private func imageFromDataURL(_ dataURL: String) -> UIImage? {
+        let base64 = dataURL.components(separatedBy: ",").last ?? dataURL
+        guard let data = Data(base64Encoded: base64) else { return nil }
+        return UIImage(data: data)
+    }
+
     // MARK: — Route management
 
     func removeRoute(_ route: Route) {
@@ -170,10 +210,7 @@ final class RouteStore: ObservableObject {
 
         Task {
             do {
-                let path = try await supabaseService.savePhoto(photo, routeId: routeId, userId: userId, imageData: imageData)
-                if let idx = photos.firstIndex(where: { $0.id == photo.id }) {
-                    photos[idx].storagePath = path
-                }
+                try await supabaseService.savePhoto(photo, routeId: routeId, userId: userId, imageData: imageData)
                 showToast("Photo saved", type: .success)
             } catch {
                 showToast("DB photo save error: \(error.localizedDescription)", type: .error)

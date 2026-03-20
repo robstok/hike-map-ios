@@ -49,6 +49,7 @@ struct MainView: View {
         }
         .task {
             await store.loadSavedRoutes(userId: userId)
+            await store.loadSavedPhotos(userId: userId)
         }
         .fileImporter(
             isPresented: $showFilePicker,

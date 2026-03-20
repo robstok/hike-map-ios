@@ -14,6 +14,7 @@
 		3C9B9B44401FD8D2BA7F6A39 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3CC0EB1AB4D54150AF330D /* MapCoordinator.swift */; };
 		5147B5C91F4B9273926A5248 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E69E21102695F237D3BABE /* MainView.swift */; };
 		56D41FF32DCB5FA51BCE9CB0 /* RouteStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83835C920365639D03734FBA /* RouteStatsView.swift */; };
+		5C7EC1D46389BE9888C84482 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B110DDB5862642347A1AEC /* Assets.xcassets */; };
 		5CB805D5D5883D6A88DBECE4 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 397EFCDCF76589A74AF7DF72 /* Supabase */; };
 		7A87F81E175C1FAA69AF1A37 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F86E437A6378C2754356695 /* AppState.swift */; };
 		89DEC54C0E3EB2633093AF60 /* GPXPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AE4FAD1D73A3AD27C7A5E3 /* GPXPoint.swift */; };
@@ -27,6 +28,7 @@
 		D87E83CB236E67A22696C35B /* HikeMapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522C4EFBDCCD4C0D1DC73EC6 /* HikeMapApp.swift */; };
 		DD1687EDDF5EBEE0B289821A /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4831FC5F9D1CCC661FB6DA49 /* ToastView.swift */; };
 		DEEBD9F941F3CC5B7F2D7B55 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B82CC30BA50363F58FC1C1 /* GPXParser.swift */; };
+		E1AEB41EAA245B92EC74B8FE /* HitrekkLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D7FFAA26C23D76B8246E59 /* HitrekkLogo.swift */; };
 		E5391B8D99D100A4C260F8E2 /* PhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670C8622B188D9A428C68AE3 /* PhotoItem.swift */; };
 		E5E7CD30A264D898409F97C8 /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26382B2209E9B9467B245354 /* PhotoPickerView.swift */; };
 		EC06FF1DB8BCF2A2D572870A /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83535581872FEACCF7709EA /* DashboardView.swift */; };
@@ -37,6 +39,7 @@
 /* Begin PBXFileReference section */
 		0D76440B38C87B2A8592C332 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		1F86E437A6378C2754356695 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		24D7FFAA26C23D76B8246E59 /* HitrekkLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitrekkLogo.swift; sourceTree = "<group>"; };
 		26382B2209E9B9467B245354 /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
 		2B8765C0F2FAF0E041625DCF /* RouteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteListView.swift; sourceTree = "<group>"; };
 		4831FC5F9D1CCC661FB6DA49 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
@@ -56,6 +59,7 @@
 		9873629D23F98B704DC692BA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AE0869F1BE0E7606609804C3 /* ElevationChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationChartView.swift; sourceTree = "<group>"; };
 		B83535581872FEACCF7709EA /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		C9B110DDB5862642347A1AEC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF4A6BD1B18872E261D9A7C2 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		E0B38451CB68DF46F12226CB /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		ED3CC0EB1AB4D54150AF330D /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
@@ -81,6 +85,14 @@
 				C1F99407D278AB949586DBB0 /* HikeMap */,
 				6350F78431241D57E2F800C1 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		0ABCE0664A4F2AB781305D44 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C9B110DDB5862642347A1AEC /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		5188E5CD742B2C8182459DAE /* App */ = {
@@ -130,6 +142,7 @@
 		898E9E3782D596F1421E351B /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				24D7FFAA26C23D76B8246E59 /* HitrekkLogo.swift */,
 				4831FC5F9D1CCC661FB6DA49 /* ToastView.swift */,
 			);
 			path = Shared;
@@ -157,6 +170,7 @@
 			children = (
 				5188E5CD742B2C8182459DAE /* App */,
 				E41EF2EB6941CA7C24F70928 /* Models */,
+				0ABCE0664A4F2AB781305D44 /* Resources */,
 				F2ECA022161970052C377E8F /* Services */,
 				C90CC5B736139D9DB8146CF3 /* Views */,
 			);
@@ -218,6 +232,7 @@
 			buildConfigurationList = C871C563A2586DEE88E9E9E7 /* Build configuration list for PBXNativeTarget "HikeMap" */;
 			buildPhases = (
 				20297C8265D4BD33B27FF059 /* Sources */,
+				15B1BA557D8DAF3B1F455D86 /* Resources */,
 				60E5E102713EC33E5D993809 /* Frameworks */,
 			);
 			buildRules = (
@@ -270,6 +285,17 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		15B1BA557D8DAF3B1F455D86 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C7EC1D46389BE9888C84482 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		20297C8265D4BD33B27FF059 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -285,6 +311,7 @@
 				DEEBD9F941F3CC5B7F2D7B55 /* GPXParser.swift in Sources */,
 				89DEC54C0E3EB2633093AF60 /* GPXPoint.swift in Sources */,
 				D87E83CB236E67A22696C35B /* HikeMapApp.swift in Sources */,
+				E1AEB41EAA245B92EC74B8FE /* HitrekkLogo.swift in Sources */,
 				5147B5C91F4B9273926A5248 /* MainView.swift in Sources */,
 				3C9B9B44401FD8D2BA7F6A39 /* MapCoordinator.swift in Sources */,
 				A5053BCF26CAE5FA4AD2ABC7 /* MapLibreView.swift in Sources */,
@@ -308,6 +335,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -386,6 +414,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";

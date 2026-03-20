@@ -26,12 +26,7 @@ struct AuthView: View {
             VStack(spacing: 0) {
                 // Logo
                 VStack(spacing: 8) {
-                    Image(systemName: "mountain.2.fill")
-                        .font(.system(size: 40))
-                        .foregroundStyle(
-                            LinearGradient(colors: [Config.accent, Color(hex: "#FF9962")],
-                                          startPoint: .topLeading, endPoint: .bottomTrailing)
-                        )
+                    HitrekkLogoView(size: 52)
                     Text("Hitrekk")
                         .font(.system(size: 28, weight: .bold))
                         .foregroundStyle(

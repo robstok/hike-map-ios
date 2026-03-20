@@ -23,12 +23,7 @@ struct SplashView: View {
         ZStack {
             Color(hex: "#0d1117").ignoresSafeArea()
             VStack(spacing: 12) {
-                Image(systemName: "mountain.2.fill")
-                    .font(.system(size: 52))
-                    .foregroundStyle(
-                        LinearGradient(colors: [Config.accent, Color(hex: "#FF9962")],
-                                      startPoint: .topLeading, endPoint: .bottomTrailing)
-                    )
+                HitrekkLogoView(size: 64)
                 Text("Hitrekk")
                     .font(.system(size: 32, weight: .bold))
                     .foregroundStyle(

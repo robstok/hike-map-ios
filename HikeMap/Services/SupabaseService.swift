@@ -30,7 +30,8 @@ struct PhotoRecord: Codable {
     var lat: Double
     var lon: Double
     var photo_time: String?
-    var storage_path: String
+    var storage_path: String?   // legacy Storage-based path
+    var photo_data: String?     // base64 data URL (web app format)
 }
 
 // MARK: — Service
@@ -88,15 +89,12 @@ final class SupabaseService {
 
     // MARK: — Photos
 
-    func savePhoto(_ photo: PhotoItem, routeId: UUID?, userId: String, imageData: Data) async throws -> String {
-        let path = "\(userId)/\(photo.id.uuidString)"
+    func savePhoto(_ photo: PhotoItem, routeId: UUID?, userId: String, imageData: Data) async throws {
+        // Compress to JPEG and store as base64 data URL — matches web app format
+        let jpeg = UIImage(data: imageData)?
+            .jpegData(compressionQuality: 0.82) ?? imageData
+        let base64 = "data:image/jpeg;base64," + jpeg.base64EncodedString()
 
-        // Upload to storage
-        try await client.storage
-            .from("photos")
-            .upload(path, data: imageData, options: FileOptions(contentType: "image/jpeg"))
-
-        // Save metadata
         let isoDate = photo.photoTime.map { ISO8601DateFormatter().string(from: $0) }
         let record = PhotoRecord(
             id: photo.id.uuidString,
@@ -106,10 +104,10 @@ final class SupabaseService {
             lat: photo.coordinate.latitude,
             lon: photo.coordinate.longitude,
             photo_time: isoDate,
-            storage_path: path
+            storage_path: nil,
+            photo_data: base64
         )
         try await client.from("photos").insert(record).execute()
-        return path
     }
 
     func loadPhotos(userId: String) async throws -> [PhotoRecord] {
