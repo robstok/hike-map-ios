@@ -8,8 +8,9 @@ enum Config {
 
     // MARK: — Map
     static let mapStyleURL     = "https://tiles.openfreemap.org/styles/liberty"
-    static let terrainTileURL  = "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"
-    static let hikingTilesURL  = "https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png"
+    static let terrainTileURL   = "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"
+    static let osmTileURL       = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+    static let hikingTilesURL   = "https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png"
     static let satelliteTileURL = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
 
     static let initialCenter   = CLLocationCoordinate2D(latitude: 46.8, longitude: 8.2)

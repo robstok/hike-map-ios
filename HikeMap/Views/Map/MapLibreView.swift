@@ -37,12 +37,13 @@ struct MapLibreView: UIViewRepresentable {
     func updateUIView(_ mapView: MLNMapView, context: Context) {
         let coord = context.coordinator
 
-        // Sync 3D pitch
+        // Sync 3D pitch + OSM base layer visibility (2D = OSM raster, 3D = hillshade)
         if is3DEnabled != coord.lastIs3DEnabled {
             coord.lastIs3DEnabled = is3DEnabled
             let camera = mapView.camera.copy() as! MLNMapCamera
             camera.pitch = is3DEnabled ? 60 : 0
             mapView.setCamera(camera, withDuration: 0.5, animationTimingFunction: nil)
+            coord.setOSMBaseVisible(!is3DEnabled, on: mapView)
         }
 
         // Sync satellite layer

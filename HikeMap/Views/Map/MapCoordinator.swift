@@ -34,6 +34,23 @@ final class MapCoordinator: NSObject, MLNMapViewDelegate {
     // MARK: — Terrain
 
     func setupTerrain(style: MLNStyle, mapView: MLNMapView) {
+        // OSM raster base — visible in 2D, hidden in 3D (matches web app behaviour)
+        let osmSource = MLNRasterTileSource(
+            identifier: "osm-base",
+            tileURLTemplates: [Config.osmTileURL],
+            options: [
+                .tileSize: NSNumber(value: 256),
+                .attributionInfos: [MLNAttributionInfo(title: NSAttributedString(string: "© OpenStreetMap contributors"), url: URL(string: "https://www.openstreetmap.org/copyright")!)]
+            ]
+        )
+        style.addSource(osmSource)
+        let osmLayer = MLNRasterStyleLayer(identifier: "osm-base-layer", source: osmSource)
+        osmLayer.rasterOpacity = NSExpression(forConstantValue: 1.0)
+        // Start hidden if 3D is on (lastIs3DEnabled defaults to false but 3D starts enabled in UI)
+        osmLayer.isVisible = !lastIs3DEnabled
+        style.insertLayer(osmLayer, at: 0)
+
+        // DEM hillshade for 3D terrain
         let demSource = MLNRasterDEMSource(
             identifier: "terrain-dem",
             tileURLTemplates: [Config.terrainTileURL],
@@ -47,12 +64,18 @@ final class MapCoordinator: NSObject, MLNMapViewDelegate {
 
         let hillshade = MLNHillshadeStyleLayer(identifier: "hillshade", source: demSource)
         hillshade.hillshadeExaggeration = NSExpression(forConstantValue: NSNumber(value: 0.35))
-        // Insert hillshade before labels
+        hillshade.isVisible = lastIs3DEnabled
         if let firstSymbol = style.layers.first(where: { $0 is MLNSymbolStyleLayer }) {
             style.insertLayer(hillshade, below: firstSymbol)
         } else {
             style.addLayer(hillshade)
         }
+    }
+
+    func setOSMBaseVisible(_ visible: Bool, on mapView: MLNMapView) {
+        guard let style = mapView.style else { return }
+        style.layer(withIdentifier: "osm-base-layer")?.isVisible = visible
+        style.layer(withIdentifier: "hillshade")?.isVisible = !visible
     }
 
     // MARK: — Satellite layer
